@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext, useReducer } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./app.styles.scss";
+import Layout from "./components/layout/Layout.component";
+
+import appReducer from "./context/appReducer";
+import AppContext from "./context/appContext";
 
 function App() {
+  let initState = { userId: null, userEmail: null };
+  let [state, dispatch] = useReducer(appReducer, initState);
+  console.log(state);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={[state, dispatch]}>
+      <Router>
+        <div className="app">
+          <Layout />
+        </div>
+      </Router>
+    </AppContext.Provider>
   );
 }
 
