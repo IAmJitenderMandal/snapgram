@@ -12,7 +12,7 @@ function appReducer(state, action) {
     case ALL_POSTS:
       return {
         ...state,
-        all_post: action.payload,
+        all_posts: action.payload,
       };
     default:
       return state;

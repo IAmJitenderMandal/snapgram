@@ -47,6 +47,8 @@ export default function CreatePost() {
         });
     } else {
       setPostData(postId, postOwnerId, description);
+      setDescription("");
+      setFile("");
       console.log("data uploaded");
     }
   }

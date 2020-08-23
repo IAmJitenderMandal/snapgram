@@ -7,7 +7,7 @@ import appReducer from "./context/appReducer";
 import AppContext from "./context/appContext";
 
 function App() {
-  let initState = { userId: null, userEmail: null };
+  let initState = { userId: null, userEmail: null, all_posts: [] };
   let [state, dispatch] = useReducer(appReducer, initState);
 
   return (

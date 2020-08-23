@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./home.styles.scss";
 
 // react router
@@ -37,16 +37,17 @@ var storage = firebase.storage();
 export default function Home() {
   let [state, dispatch] = useContext(AppContext);
 
+  database.ref("/posts").once("value", function (snapshot) {
+    dispatch({
+      type: ALL_POSTS,
+      payload: Object.entries(snapshot.val()),
+    });
+  });
+
+  // console.log(state);
   // if (state.userId === null) {
   //   return <Redirect to="/" />;
   // }
-
-  // database.ref("/posts").on("value", function (snapshot) {
-  //   dispatch({
-  //     type: ALL_POSTS,
-  //     payload: snapshot.val(),
-  //   });
-  // });
 
   return (
     <div className="home">
@@ -55,7 +56,13 @@ export default function Home() {
         <SidePanel />
         <div className="centeral">
           <CreatePost />
-          {/* {state.all_post.map((post) => console.log(post))} */}
+          {state.all_posts.map((post) => (
+            <PostCard
+              key={post[0]}
+              description={post[1].description}
+              image={post[1].fileUrl}
+            />
+          ))}
         </div>
         <ChatWindow />
       </div>
