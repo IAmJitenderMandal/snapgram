@@ -27,20 +27,26 @@ import "firebase/database";
 // firebase ui library
 import firebaseUI from "firebaseui";
 import CreatePost from "../create-post/CreatePost.component";
+import { ALL_POSTS } from "../../context/action.types";
+
 // Get a reference to the database service
 var database = firebase.database();
-
 // Get a reference to the storage service, which is used to create references in your storage bucket
 var storage = firebase.storage();
 
 export default function Home() {
-  let [state] = useContext(AppContext);
+  let [state, dispatch] = useContext(AppContext);
 
-  console.log(state.userEmail);
+  // if (state.userId === null) {
+  //   return <Redirect to="/" />;
+  // }
 
-  if (state.userId === null) {
-    return <Redirect to="/" />;
-  }
+  // database.ref("/posts").on("value", function (snapshot) {
+  //   dispatch({
+  //     type: ALL_POSTS,
+  //     payload: snapshot.val(),
+  //   });
+  // });
 
   return (
     <div className="home">
@@ -49,7 +55,7 @@ export default function Home() {
         <SidePanel />
         <div className="centeral">
           <CreatePost />
-          <PostCard />
+          {/* {state.all_post.map((post) => console.log(post))} */}
         </div>
         <ChatWindow />
       </div>

@@ -9,7 +9,7 @@ import AppContext from "./context/appContext";
 function App() {
   let initState = { userId: null, userEmail: null };
   let [state, dispatch] = useReducer(appReducer, initState);
-  console.log(state);
+
   return (
     <AppContext.Provider value={[state, dispatch]}>
       <Router>
